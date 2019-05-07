@@ -1,0 +1,96 @@
+.AppFrame {
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    position: absolute;
+    overflow: hidden;
+    background-color: skyblue;
+    border: solid 0 transparent;
+    margin: 0px;
+    padding: 0px;
+}
+
+.AppToolBar {
+    overflow: hidden;
+    position: absolute;
+    margin: 0px;
+    border: solid transparent;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 44px;
+    font-family: 'SFNSDisplay', 'SFNSText', 'Helvetica Neue', sans-serif;
+    font-size: 21px;
+    line-height: 0.4;
+    background-color: #DFEEFC;
+    float: left;
+}
+
+.AppCollectionMenu {
+    font-family: 'SFNSDisplay', 'SFNSText', 'Helvetica Neue', sans-serif;
+    font-size: 21px;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    height: 40px;
+}
+
+.AppCollectionMenu p {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.CommonTwoColumn {
+    left: 0px;
+    right: 0px;
+    top:0px;
+    bottom: 0px;
+    height: 100%;
+    widows: 100%;
+    overflow: hidden;
+    margin: 0px;
+    border: solid 0 transparent;
+}
+
+.CommonTwoColumnLeft {
+    background-color: #DFEEFC;
+    left: 0px;
+    right: 85.4%;
+    top:0px;
+    bottom: 0px;
+    position: absolute;
+    overflow: hidden;
+    margin: 0px;
+    border: solid 0 transparent;
+}
+
+.CommonTwoColumnRight {
+    background-color: silver;
+    left: 14.6%;
+    right: 0px;
+    top:0px;
+    bottom: 0px;
+    position: absolute;
+    overflow: hidden;
+    margin: 0px;
+    border: solid 0 transparent;
+}
+
+.Home {
+    background-color: rgb(18, 131, 236);
+    z-index: 99;
+    width: 2cm;
+    height: 1cm;
+    right: 5mm;
+    top: 5mm;
+    position: fixed;
+    border-radius: 10px;
+    box-shadow: 0px 0px 49px 1px rgba(0,0,0,0.75);
+}

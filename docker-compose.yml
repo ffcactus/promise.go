@@ -1,0 +1,196 @@
+version: "3.2"
+
+services:
+  db:
+    image: postgres.promise:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=iforgot
+      - POSTGRES_MULTIPLE_DATABASES=auth,enclosure,pool,server,task
+    networks:
+      - networks_service
+      - networks_db
+    volumes:
+      - type: volume
+        source: dbdata
+        target: /var/lib/postgresql/data
+  httpd:
+    image: httpd.promise:latest
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "80:80"
+    networks:
+      - networks_front
+      - networks_service
+  rabbitmq:
+    image: rabbitmq:alpine
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - networks_service
+  ws:
+    image: ws.promise:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - "httpd"
+    command: "./wait-for.sh db:5432 -- ./wait-for.sh rabbitmq:5672 -- ./ws"
+    networks:
+      - networks_front
+      - networks_service
+    volumes:
+      - type: volume
+        source: logdata
+        target: /opt/promise/log
+  auth:
+    image: auth.promise:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - "httpd"
+      - "db"
+      - "rabbitmq"
+    command: "./wait-for.sh db:5432 -- ./wait-for.sh rabbitmq:5672 -- ./auth"
+    networks:
+      - networks_front
+      - networks_service
+      - networks_db
+    volumes:
+      - type: volume
+        source: logdata
+        target: /opt/promise/log
+  task:
+    image: task.promise:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - "httpd"
+      - "db"
+      - "auth"
+      - "rabbitmq"
+    command: "./wait-for.sh db:5432 -- ./wait-for.sh rabbitmq:5672 -- ./task"
+    networks:
+      - networks_front
+      - networks_service
+      - networks_db
+    volumes:
+      - type: volume
+        source: logdata
+        target: /opt/promise/log
+  pool:
+    image: pool.promise:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - "httpd"
+      - "db"
+      - "auth"
+      - "rabbitmq"
+    command: "./wait-for.sh db:5432 -- ./wait-for.sh rabbitmq:5672 -- ./pool"
+    networks:
+      - networks_front
+      - networks_service
+      - networks_db
+    volumes:
+      - type: volume
+        source: logdata
+        target: /opt/promise/log
+  server:
+    image: server.promise:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - "httpd"
+      - "db"
+      - "auth"
+      - "task"
+      - "rabbitmq"
+    # command: "./wait-for.sh db:5432 -- ./wait-for.sh rabbitmq:5672 -- ./server"
+    command: "./wait-for.sh db:5432 -- ./wait-for.sh rabbitmq:5672 -- sleep 99999"
+    networks:
+      - networks_front
+      - networks_service
+      - networks_db
+    volumes:
+      - type: volume
+        source: logdata
+        target: /opt/promise/log
+  enclosure:
+    image: enclosure.promise:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - "httpd"
+      - "db"
+      - "auth"
+      - "task"
+      - "rabbitmq"
+    entrypoint: /bin/ash
+    command: "./wait-for.sh db:5432 -- ./wait-for.sh rabbitmq:5672 -- sleep 99999"
+    networks:
+      - networks_front
+      - networks_service
+      - networks_db
+    volumes:
+      - type: volume
+        source: logdata
+        target: /opt/promise/log
+  director:
+    image: director.promise:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - "httpd"
+      - "db"
+      - "auth"
+      - "task"
+      - "rabbitmq"
+    command: "./wait-for.sh db:5432 -- ./wait-for.sh rabbitmq:5672 -- ./director"
+    networks:
+      - networks_front
+      - networks_service
+      - networks_db
+    volumes:
+      - type: volume
+        source: logdata
+        target: /opt/promise/log
+
+networks:
+  networks_front:
+    driver: overlay
+    attachable: true
+  networks_service:
+    driver: overlay
+    attachable: true
+  networks_db:
+    driver: overlay
+    attachable: true
+
+volumes:
+  dbdata:
+  logdata:

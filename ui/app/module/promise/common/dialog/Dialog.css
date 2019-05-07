@@ -1,0 +1,53 @@
+.DialogFrameContainer {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 100;
+}
+
+.DialogFrame {
+	position: relative;
+	transform: translateY(-50%);
+	left: -50%;
+	display: block;
+	border: 1px solid rgba(100,163,184,1);
+	border-radius: 20px;
+	background: #c7ccd0;
+	box-shadow: 10px 10px 10px rgba(100,163,184,0.4);	
+}
+
+.DialogTitleDiv {
+	text-align: center;
+}
+
+.DialogTitleText {
+	color: blue;
+	font-family: arial;
+	font-size: 2rem;
+	margin: 10px 50px;
+	white-space: nowrap;
+}
+
+.DialogControlDiv {
+	text-align: center;
+}
+
+.DialogButton {
+	color: blue;
+	font-family: arial;
+	font-size: 1.5rem;
+	margin: 5px;
+	white-space: nowrap;
+}
+
+.DialogContentDiv {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+.DialogHR {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
