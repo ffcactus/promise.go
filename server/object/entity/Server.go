@@ -9,6 +9,7 @@ import (
 // Server Server entity.
 type Server struct {
 	base.Entity
+	ProductInfo
 	State              string              `gorm:"column:State"`
 	Health             string              `gorm:"column:Health"`
 	Name               string              `gorm:"column:Name"`
@@ -20,6 +21,8 @@ type Server struct {
 	Type               string              `gorm:"column:Type"`
 	Protocol           string              `gorm:"column:Protocol"`
 	Vender             string              `gorm:"column:Vender"`
+	PowerState         string              `gorm:"column:PowerState"`
+	IndicatorLED       string              `gorm:"column:IndicatorLED"`
 	Credential         string              `gorm:"column:Credential"`
 	Processors         []Processor         `gorm:"column:Processors;ForeignKey:ServerRef"`
 	Memory             []Memory            `gorm:"column:Memory;ForeignKey:ServerRef"`
@@ -194,6 +197,15 @@ func (e *Server) FilterNameList() []string {
 		"Description",
 		"PhysicalUUID",
 		"Hostname",
+		"Vender",
+		"PowerState",
+		"IndicatorLED",
+		"Model",
+		"Manufacturer",
+		"SerialNumber",
+		"PartNumber",
+		"SparePartNumber",
+		"AssetTag",
 	}
 }
 
@@ -205,6 +217,7 @@ func (e *Server) Load(i base.ModelInterface) error {
 		return base.ErrorDataConvert
 	}
 	base.EntityLoad(&e.Entity, &m.Model)
+	updateProductInfoEntity(&e.ProductInfo, &m.ProductInfo)
 	e.State = m.State
 	e.Health = m.Health
 	e.Name = m.Name
@@ -217,6 +230,8 @@ func (e *Server) Load(i base.ModelInterface) error {
 	e.Type = m.Type
 	e.Protocol = m.Protocol
 	e.Vender = m.Vender
+	e.PowerState = m.PowerState
+	e.IndicatorLED = m.IndicatorLED
 	return nil
 }
 
@@ -224,6 +239,7 @@ func (e *Server) Load(i base.ModelInterface) error {
 func (e *Server) ToModel() base.ModelInterface {
 	m := model.Server{}
 	base.EntityToModel(&e.Entity, &m.Model)
+	createProductInfoModel(&e.ProductInfo, &m.ProductInfo)
 	m.OriginURIs.Chassis = e.OriginURIsChassis
 	m.OriginURIs.System = e.OriginURIsSystem
 	m.PhysicalUUID = e.PhysicalUUID
@@ -233,6 +249,8 @@ func (e *Server) ToModel() base.ModelInterface {
 	m.Type = e.Type
 	m.Protocol = e.Protocol
 	m.Vender = e.Vender
+	m.PowerState = e.PowerState
+	m.IndicatorLED = e.IndicatorLED
 	m.Credential = e.Credential
 	m.State = e.State
 	m.Health = e.Health

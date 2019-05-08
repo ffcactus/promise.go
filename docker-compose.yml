@@ -127,7 +127,7 @@ services:
       - "task"
       - "rabbitmq"
     # command: "./wait-for.sh db:5432 -- ./wait-for.sh rabbitmq:5672 -- ./server"
-    command: "./wait-for.sh db:5432 -- ./wait-for.sh rabbitmq:5672 -- sleep 99999"
+    command: "./wait-for.sh db:5432 -- ./wait-for.sh rabbitmq:5672 -- sleep 9999999"
     networks:
       - networks_front
       - networks_service

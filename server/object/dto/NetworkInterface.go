@@ -16,7 +16,7 @@ func (dto *NetworkInterface) Load(m *model.NetworkInterface, networkAdapters []m
 	dto.LoadResourceResponse(&m.Resource)
 	for i := range networkAdapters {
 		target := networkAdapters[i]
-		if (target.URI != nil) && (m.NetworkAdapterURI == *target.URI) {
+		if m.NetworkAdapterURI == target.URI {
 			ref := ResourceRef{}
 			ref.Ref = fmt.Sprintf("#/Chassis/NetworkAdapters/%d", i)
 			dto.NetworkAdapter = ref

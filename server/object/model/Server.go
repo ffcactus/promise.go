@@ -31,14 +31,16 @@ type Chassis struct {
 
 // ServerBasicInfo It represents the basic info about a server(Rack, Enclosure, Blade, Switch)
 type ServerBasicInfo struct {
+	Resource
+	ProductInfo
 	OriginURIs     OriginURIs // The URIs that we retrieve info from.
 	PhysicalUUID   string
-	Name           string
-	Description    string
 	Hostname       string
 	Type           string
 	Protocol       string
 	Vender         string
+	PowerState     string
+	IndicatorLED   string
 	OriginUsername *string
 	OriginPassword *string
 }
@@ -46,16 +48,16 @@ type ServerBasicInfo struct {
 // Server is the model of server.
 type Server struct {
 	base.Model
-	Name           string
-	Description    string
-	State          string
-	Health         string
+	Resource
+	ProductInfo
 	OriginURIs     OriginURIs // The URIs that we retrieve info from.
 	PhysicalUUID   string
 	Hostname       string
 	Type           string
 	Protocol       string
 	Vender         string
+	PowerState     string
+	IndicatorLED   string
 	OriginUsername *string
 	OriginPassword *string
 	Credential     string
@@ -99,6 +101,8 @@ func (o *ServerBasicInfo) CreateServer() *Server {
 	server.Description = o.Description
 	server.State = "State???"
 	server.Health = "Health???"
+	server.PhysicalState = o.PhysicalState
+	server.PhysicalHealth = o.PhysicalHealth
 	server.OriginURIs.Chassis = o.OriginURIs.Chassis
 	server.OriginURIs.System = o.OriginURIs.System
 	server.PhysicalUUID = o.PhysicalUUID
@@ -106,7 +110,17 @@ func (o *ServerBasicInfo) CreateServer() *Server {
 	server.Type = o.Type
 	server.Protocol = o.Protocol
 	server.Vender = o.Vender
+	server.PowerState = o.PowerState
+	server.IndicatorLED = o.IndicatorLED
 	server.OriginUsername = o.OriginUsername
 	server.OriginPassword = o.OriginPassword
+
+	server.ProductInfo.Model = o.Model
+	server.Manufacturer = o.Manufacturer
+	server.SKU = o.SKU
+	server.SerialNumber = o.SerialNumber
+	server.PartNumber = o.PartNumber
+	server.SparePartNumber = o.SparePartNumber
+	server.AssetTag = o.AssetTag
 	return server
 }

@@ -1,14 +1,10 @@
-package dto
-
-import (
-	"promise/server/client/redfish"
-)
+package redfish
 
 // GetProcessorResponse definition for the Processor resource.  It represents the properties of a processor attached to a System.
 type GetProcessorResponse struct {
-	redfish.Resource
-	redfish.ProductInfo
-	Socket                *string `json:"Socket"`                // The socket or location of the processor.
+	Resource
+	ProductInfo
+	Socket                *int    `json:"Socket"`                // The socket or location of the processor.
 	ProcessorType         *string `json:"ProcessorType"`         // The type of processor.
 	ProcessorArchitecture *string `json:"ProcessorArchitecture"` // The architecture of the processor.
 	InstructionSet        *string `json:"InstructionSet"`        // The instruction set of the processor.

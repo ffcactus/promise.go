@@ -38,7 +38,7 @@ func FindBestClient(vender *string, hostname string, username string, password s
 	if vender == nil {
 		*vender = "Huawei"
 	}
-	if *vender == "HP" {
+	if *vender == "HPE" {
 		client = hp.GetInstance(hostname, username, password)
 		if client.Support() {
 			support = true
@@ -84,7 +84,7 @@ func GetServerClient(server *model.Server) ServerClientInterface {
 	username, password := getServerManagementAccount(server)
 	if server.Vender == "Huawei" {
 		return huawei.GetInstance(server.Hostname, username, password)
-	} else if server.Vender == "HP" {
+	} else if server.Vender == "HPE" {
 		return hp.GetInstance(server.Hostname, username, password)
 	} else if server.Vender == "Dell" {
 		return dell.GetInstance(server.Hostname, username, password)

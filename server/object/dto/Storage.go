@@ -42,7 +42,7 @@ func (dto *Storage) Load(m *model.Storage, drives []model.Drive) {
 		src := m.DriveURIs[i]
 		for j := range drives {
 			target := drives[j]
-			if (target.URI != nil) && (src == *target.URI) {
+			if src == target.URI {
 				ref := ResourceRef{}
 				ref.Ref = fmt.Sprintf("#/Chassis/Drives/%d", j)
 				dto.Drives = append(dto.Drives, ref)

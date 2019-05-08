@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import CSSModules from 'react-css-modules';
-import styles from './App.css';
-import * as ServerAction from './ServerAction';
-import ServerListElementTask from './ServerListElementTask';
-import ServerListElementName from './ServerListElementName';
-import { Health } from '../../promise/common/Widget/Health';
-import CenterDiv from '../../promise/common/CenterDiv';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import CSSModules from "react-css-modules";
+import styles from "./App.css";
+import * as ServerAction from "./ServerAction";
+import ServerListElementTask from "./ServerListElementTask";
+import ServerListElementName from "./ServerListElementName";
+import { Health } from "../../promise/common/Widget/Health";
+import CenterDiv from "../../promise/common/CenterDiv";
 
 class ServerListElement extends React.PureComponent {
   constructor(props) {
@@ -22,19 +22,17 @@ class ServerListElement extends React.PureComponent {
   }
 
   render() {
-    const currentStyle = 'ServerListElement ' + (
-      this.props.selected ?
-        'Selected' : 'NotSelected'
-    );
+    const currentStyle =
+      "ServerListElement " + (this.props.selected ? "Selected" : "NotSelected");
     return (
       <div styleName={currentStyle} onClick={this.onSelect}>
         <div styleName="ServerListElementHealth">
-          <CenterDiv>
-            <Health health={this.props.server.Health}/>
-          </CenterDiv>
+          <Health health={this.props.server.Health} />
         </div>
-        <ServerListElementName name={this.props.server.Name ? this.props.server.Name : '...'} />
-        <ServerListElementTask serverUri={this.props.server.URI}/>
+        <ServerListElementName
+          name={this.props.server.Name ? this.props.server.Name : "..."}
+        />
+        <ServerListElementTask serverUri={this.props.server.URI} />
       </div>
     );
   }
@@ -42,7 +40,7 @@ class ServerListElement extends React.PureComponent {
 
 function mapStateToProps(state, ownProps) {
   return {
-    selected: ownProps.server.URI === state.serverApp.currentServerUri,
+    selected: ownProps.server.URI === state.serverApp.currentServerUri
   };
 }
 
@@ -52,5 +50,6 @@ ServerListElement.propTypes = {
   dispatch: PropTypes.func
 };
 
-export default connect(mapStateToProps)(CSSModules(ServerListElement, styles, {allowMultiple: true}));
-
+export default connect(mapStateToProps)(
+  CSSModules(ServerListElement, styles, { allowMultiple: true })
+);

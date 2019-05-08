@@ -28,7 +28,7 @@ type RefreshServer interface {
 
 // CreateRefreshServerStrategy creates the strategy based on server.
 func CreateRefreshServerStrategy(server *model.Server) RefreshServer {
-	if server.Vender == "HP" {
+	if server.Vender == "HPE" {
 		return new(hp.Refresh)
 	}
 	if server.Vender == "Dell" {

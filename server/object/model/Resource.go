@@ -2,9 +2,9 @@ package model
 
 // ResourceStatus This type describes the status and health of a resource and its children.
 type ResourceStatus struct {
-	State        *string
-	HealthRollup *string // This property shall represent the HealthState of the resource and its dependent resources.
-	Health       *string // This property shall represent the HealthState of the resource without consIDering its dependent resources. The values shall conform to those defined in the Redfish specification.
+	State        string
+	HealthRollup string // This property shall represent the HealthState of the resource and its dependent resources.
+	Health       string // This property shall represent the HealthState of the resource without consIDering its dependent resources. The values shall conform to those defined in the Redfish specification.
 }
 
 // Threshold The common Threshold information.
@@ -25,45 +25,38 @@ type MemberID struct {
 // Resource The whole server information is build up by resource and member.
 // Both Resource and Member are referable object, Member is used for array.
 type Resource struct {
-	URI            *string
-	Name           *string
-	Description    *string
-	State          *string
-	Health         *string
-	OriginID       *string
-	PhysicalState  *string
-	PhysicalHealth *string
+	URI            string
+	Name           string
+	Description    string
+	State          string
+	Health         string
+	OriginID       string
+	PhysicalState  string
+	PhysicalHealth string
 }
 
 // Member The member object
 type Member struct {
-	URI            *string
+	URI            string
 	MemberID       string
-	Name           *string
-	Description    *string
-	State          *string
-	Health         *string
-	OriginMemberID *string
-	PhysicalState  *string
-	PhysicalHealth *string
+	Name           string
+	Description    string
+	State          string
+	Health         string
+	OriginMemberID string
+	PhysicalState  string
+	PhysicalHealth string
 }
-
-//
-// type ResourceCollection struct {
-// 	Description  string
-// 	Name         string
-// 	MembersCount int
-// }
 
 // ProductInfo The commom number properties of a resource.
 type ProductInfo struct {
-	Model           *string // The model string for this product.
-	Manufacturer    *string // The manufacturer string  of this product.
-	SKU             *string // The SKU string of this product.
-	SerialNumber    *string // The serial number for this resource.
-	PartNumber      *string // The part number for this resource.
-	SparePartNumber *string // The spare part number for this resource.
-	AssetTag        *string // The value of this property shall be an IDentifying string used to track the resource for inventory purposes.
+	Model           string // The model string for this product.
+	Manufacturer    string // The manufacturer string  of this product.
+	SKU             string // The SKU string of this product.
+	SerialNumber    string // The serial number for this resource.
+	PartNumber      string // The part number for this resource.
+	SparePartNumber string // The spare part number for this resource.
+	AssetTag        string // The value of this property shall be an IDentifying string used to track the resource for inventory purposes.
 }
 
 // Placement The placement within the addressed location.

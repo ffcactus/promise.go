@@ -19,7 +19,7 @@ type DiscoverServer interface {
 
 // CreateDiscoverServerStrategy will create the post server strategy based on the server type.
 func CreateDiscoverServerStrategy(server *model.Server) DiscoverServer {
-	if server.Vender == "HP" {
+	if server.Vender == "HPE" {
 		return new(hp.Discover)
 	}
 	if server.Vender == "Dell" {

@@ -135,6 +135,7 @@ func (s *Refresh) _execute(taskID string, c *context.RefreshServer, server *mode
 	s.SetServerHealth(&c.Base, server, constvalue.ServerHealthOK)
 
 	s.SetState(&c.Base, server, constvalue.ServerStateReady)
+	s.SetTaskFinished(&c.Base, taskID, server)
 	log.WithFields(log.Fields{
 		"id": server.ID,
 	}).Info("Strategy refresh server done.")

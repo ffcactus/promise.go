@@ -28,7 +28,7 @@ func (dto *PCIeFunction) Load(m *model.PCIeFunction, ethernetInterfaces []model.
 		src := m.EthernetInterfaces[i]
 		for j := range ethernetInterfaces {
 			target := ethernetInterfaces[j]
-			if (target.URI != nil) && (src == *target.URI) {
+			if src == target.URI {
 				ref := ResourceRef{}
 				ref.Ref = fmt.Sprintf("#/ComputerSystem/EthernetInterfaces/%d", j)
 				dto.EthernetInterfaces = append(dto.EthernetInterfaces, ref)

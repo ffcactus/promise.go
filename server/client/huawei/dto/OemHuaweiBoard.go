@@ -1,8 +1,13 @@
 package dto
 
+import (
+	"promise/server/client/redfish"
+)
+
+// GetBoardsResponse DTO.
 type GetBoardsResponse struct {
-	Resource
-	ProductInfo
+	redfish.Resource
+	redfish.ProductInfo
 	CardNo          *int
 	DeviceLocator   *string
 	DeviceType      *string

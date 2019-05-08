@@ -19,7 +19,7 @@ type ComputerSystem struct {
 type Chassis struct {
 	Power           Power            `json:"Power"`
 	Thermal         Thermal          `json:"Thermal"`
-	Boards []Boards `json:"Boards"`
+	Boards          []Boards         `json:"Boards"`
 	NetworkAdapters []NetworkAdapter `json:"NetworkAdapters"`
 	Drives          []Drive          `json:"Drives"`
 	PCIeDevices     []PCIeDevice     `json:"PCIeDevices"`
@@ -28,6 +28,7 @@ type Chassis struct {
 // GetServerResponse is DTO.
 type GetServerResponse struct {
 	base.GetResponse
+	ProductInfoResponse
 	Name           string         `json:"Name"`
 	Description    string         `json:"Description"`
 	State          string         `json:"State"`
@@ -35,6 +36,9 @@ type GetServerResponse struct {
 	PhysicalUUID   string         `json:"PhysicalUUID"`
 	Hostname       string         `json:"Hostname"`
 	Type           string         `json:"Type"`
+	Vender         string         `json:"Vender"`
+	PowerState     string         `json:"PowerState"`
+	IndicatorLED   string         `json:"IndicatorLED"`
 	ComputerSystem ComputerSystem `json:"ComputerSystem"`
 	Chassis        Chassis        `json:"Chassis"`
 }
@@ -52,6 +56,7 @@ func (dto *GetServerResponse) Load(data base.ModelInterface) error {
 		return base.ErrorDataConvert
 	}
 	dto.GetResponse.Load(&m.Model)
+	dto.LoadProductInfoResponse(&m.ProductInfo)
 	dto.Name = m.Name
 	dto.Description = m.Description
 	dto.State = m.State
@@ -59,6 +64,9 @@ func (dto *GetServerResponse) Load(data base.ModelInterface) error {
 	dto.PhysicalUUID = m.PhysicalUUID
 	dto.Hostname = m.Hostname
 	dto.Type = m.Type
+	dto.Vender = m.Vender
+	dto.PowerState = m.PowerState
+	dto.IndicatorLED = m.IndicatorLED
 	// ComputerSystem.Processors
 	dto.ComputerSystem.Processors = make([]Processor, 0)
 	for i := range m.ComputerSystem.Processors {

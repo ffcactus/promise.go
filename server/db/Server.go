@@ -669,9 +669,9 @@ func (impl *Server) deletePower(c *gorm.DB, server *entity.Server) error {
 			return base.ErrorTransaction
 		}
 	}
-	if err := c.Delete(server.Power).Error; err != nil {
-		return base.ErrorTransaction
-	}
+	// if err := c.Delete(server.Power).Error; err != nil {
+	// 	return base.ErrorTransaction
+	// }
 	return nil
 }
 
@@ -735,9 +735,9 @@ func (impl *Server) deleteThermal(c *gorm.DB, server *entity.Server) error {
 			return base.ErrorTransaction
 		}
 	}
-	if err := c.Delete(server.Thermal).Error; err != nil {
-		return base.ErrorTransaction
-	}
+	// if err := c.Delete(server.Thermal).Error; err != nil {
+	// 	return base.ErrorTransaction
+	// }
 	return nil
 }
 

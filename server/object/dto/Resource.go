@@ -11,12 +11,12 @@ type ResourceRef struct {
 
 // ResourceResponse is DTO.
 type ResourceResponse struct {
-	Name           *string `json:"Name,omitempty"`
-	Description    *string `json:"Description,omitempty"`
-	State          *string `json:"State,omitempty"`
-	Health         *string `json:"Health,omitempty"`
-	PhysicalState  *string `json:"PhysicalState,omitempty"`
-	PhysicalHealth *string `json:"PhysicalHealth,omitempty"`
+	Name           string `json:"Name,omitempty"`
+	Description    string `json:"Description,omitempty"`
+	State          string `json:"State,omitempty"`
+	Health         string `json:"Health,omitempty"`
+	PhysicalState  string `json:"PhysicalState,omitempty"`
+	PhysicalHealth string `json:"PhysicalHealth,omitempty"`
 }
 
 // LoadResourceResponse will load data from model.
@@ -31,13 +31,13 @@ func (dto *ResourceResponse) LoadResourceResponse(m *model.Resource) {
 
 // MemberResponse is DTO.
 type MemberResponse struct {
-	MemberID       string  `json:"MemberID"`
-	Name           *string `json:"Name,omitempty"`
-	Description    *string `json:"Description,omitempty"`
-	State          *string `json:"State,omitempty"`
-	Health         *string `json:"Health,omitempty"`
-	PhysicalState  *string `json:"PhysicalState,omitempty"`
-	PhysicalHealth *string `json:"PhysicalHealth,omitempty"`
+	MemberID       string `json:"MemberID"`
+	Name           string `json:"Name,omitempty"`
+	Description    string `json:"Description,omitempty"`
+	State          string `json:"State,omitempty"`
+	Health         string `json:"Health,omitempty"`
+	PhysicalState  string `json:"PhysicalState,omitempty"`
+	PhysicalHealth string `json:"PhysicalHealth,omitempty"`
 }
 
 // LoadMemberResponse will load data from model.
@@ -54,13 +54,13 @@ func (dto *MemberResponse) LoadMemberResponse(m *model.Member) {
 
 // ProductInfoResponse The commom number properties of a resource.
 type ProductInfoResponse struct {
-	Model           *string `json:"Model,omitempty"`           // The model string for this product.
-	Manufacturer    *string `json:"Manufacturer,omitempty"`    // The manufacturer string  of this product.
-	SKU             *string `json:"SKU,omitempty"`             // The SKU string of this product.
-	SerialNumber    *string `json:"SerialNumber,omitempty"`    // The serial number for this resource.
-	PartNumber      *string `json:"PartNumber,omitempty"`      // The part number for this resource.
-	SparePartNumber *string `json:"SparePartNumber,omitempty"` // The spare part number for this resource.
-	AssetTag        *string `json:"AssetTag,omitempty"`        // The value of this property shall be an identifying string used to track the resource for inventory purposes.
+	Model           string `json:"Model,omitempty"`           // The model string for this product.
+	Manufacturer    string `json:"Manufacturer,omitempty"`    // The manufacturer string  of this product.
+	SKU             string `json:"SKU,omitempty"`             // The SKU string of this product.
+	SerialNumber    string `json:"SerialNumber,omitempty"`    // The serial number for this resource.
+	PartNumber      string `json:"PartNumber,omitempty"`      // The part number for this resource.
+	SparePartNumber string `json:"SparePartNumber,omitempty"` // The spare part number for this resource.
+	AssetTag        string `json:"AssetTag,omitempty"`        // The value of this property shall be an identifying string used to track the resource for inventory purposes.
 }
 
 // LoadProductInfoResponse will load data from model.

@@ -17,10 +17,10 @@ type MemberID struct {
 
 // Status Status struct.
 type Status struct {
-	State          *string
-	Health         *string
-	PhysicalState  *string
-	PhysicalHealth *string
+	State          string `gorm:"State:URI"`
+	Health         string `gorm:"Health:URI"`
+	PhysicalState  string `gorm:"PhysicalState:URI"`
+	PhysicalHealth string `gorm:"PhysicalHealth:URI"`
 }
 
 // Resource Resource means the main resources that is index by UUID.
@@ -29,10 +29,10 @@ type Resource struct {
 	Status
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
-	URI         *string
-	OriginID    *string
-	Name        *string
-	Description *string
+	URI         string `gorm:"column:URI"`
+	OriginID    string `gorm:"column:OriginID"`
+	Name        string `gorm:"column:Name"`
+	Description string `gorm:"column:Description"`
 }
 
 // EmbeddedResource The EmbeddedResource is the resources that belongs to Resource, for example the memory in server.
@@ -41,10 +41,10 @@ type Resource struct {
 type EmbeddedResource struct {
 	ID uint64 `gorm:"primary_key"`
 	Status
-	URI         *string
-	OriginID    *string
-	Name        *string
-	Description *string
+	URI         string
+	OriginID    string
+	Name        string
+	Description string
 }
 
 // EmbeddedObject The EmbeddedObject is sub structure in Resource or EmbeddedResource.
@@ -56,28 +56,21 @@ type EmbeddedObject struct {
 type Member struct {
 	ID uint64 `gorm:"primary_key"`
 	Status
-	URI            *string
-	OriginMemberID *string
-	Name           *string
-	Description    *string
-}
-
-// ResourceCollection Resource collection.
-type ResourceCollection struct {
-	Description  *string
-	Name         *string
-	MembersCount *int
+	URI            string
+	OriginMemberID string
+	Name           string
+	Description    string
 }
 
 // ProductInfo Product info.
 type ProductInfo struct {
-	Model           *string // The model string for this product.
-	Manufacturer    *string
-	SKU             *string // The SKU string of this product.
-	SerialNumber    *string // The serial number for this resource.
-	PartNumber      *string // The part number for this resource.
-	SparePartNumber *string // The spare part number for this resource.
-	AssetTag        *string // The value of this property shall be an identifying string used to track the resource for inventory purposes.
+	Model           string `gorm:"column:Model"` // The model string for this product.
+	Manufacturer    string `gorm:"column:Manufacturer"`
+	SKU             string `gorm:"column:SKU"`             // The SKU string of this product.
+	SerialNumber    string `gorm:"column:SerialNumber"`    // The serial number for this resource.
+	PartNumber      string `gorm:"column:PartNumber"`      // The part number for this resource.
+	SparePartNumber string `gorm:"column:SparePartNumber"` // The spare part number for this resource.
+	AssetTag        string `gorm:"column:AssetTag"`        // The value of this property shall be an identifying string used to track the resource for inventory purposes.
 }
 
 // Threshold The common Threshold information.
@@ -214,7 +207,7 @@ func createResourceModel(e *EmbeddedResource, m *model.Resource) {
 func createMemberModel(e *Member, m *model.Member) {
 	m.URI = e.URI
 	m.OriginMemberID = e.OriginMemberID
-	m.MemberID = *e.OriginMemberID
+	m.MemberID = e.OriginMemberID
 	m.Name = e.Name
 	m.Description = e.Description
 	m.State = e.State

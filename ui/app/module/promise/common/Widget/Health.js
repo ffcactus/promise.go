@@ -1,33 +1,35 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-export const Health = (props) => {
-  let color = 'gray';
+export const Health = props => {
+  let color = "gray";
   switch (props.health) {
-    case 'OK':
-      color = 'limegreen';
+    case "OK":
+      color = "limegreen";
       break;
-    case 'Warning':
-      color = 'orange';
+    case "Warning":
+      color = "orange";
       break;
-    case 'Critical':
-      color = 'red';
+    case "Critical":
+      color = "red";
       break;
     default:
-      color = 'gray';
+      color = "gray";
       break;
   }
   return (
-    <div style={{
-      margin: '20px',
-      height: '10px',
-      width: '10px',
-      backgroundColor: color,
-      borderRadius: '10px',
-    }}/>
+    <div
+      style={{
+        margin: "0px",
+        height: "10px",
+        width: "10px",
+        backgroundColor: color,
+        borderRadius: "10px"
+      }}
+    />
   );
 };
 
 Health.propTypes = {
-  health: PropTypes.string,
+  health: PropTypes.string
 };

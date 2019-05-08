@@ -150,34 +150,34 @@ func (c *RedfishClient) GetPCIeDevices(chassisID string) ([]model.PCIeDevice, er
 }
 
 func randResource(id string, m *model.Resource) {
-	m.OriginID = &id
-	m.State = randState()
-	m.PhysicalState = randState()
-	m.Health = randHealth()
-	m.PhysicalHealth = randHealth()
-	m.Name = randString()
-	m.Description = randString()
+	m.OriginID = id
+	m.State = *randState()
+	m.PhysicalState = *randState()
+	m.Health = *randHealth()
+	m.PhysicalHealth = *randHealth()
+	m.Name = *randString()
+	m.Description = *randString()
 }
 
 func randProductInfo(m *model.ProductInfo) {
-	m.Model = randString()
-	m.Manufacturer = randString()
-	m.SKU = randString()
-	m.SerialNumber = randString()
-	m.SparePartNumber = randString()
-	m.PartNumber = randString()
-	m.AssetTag = randString()
+	m.Model = *randString()
+	m.Manufacturer = *randString()
+	m.SKU = *randString()
+	m.SerialNumber = *randString()
+	m.SparePartNumber = *randString()
+	m.PartNumber = *randString()
+	m.AssetTag = *randString()
 }
 
 func randMember(ID string, m *model.Member) {
 	m.MemberID = ID
-	m.OriginMemberID = &ID
-	m.State = randState()
-	m.PhysicalState = randState()
-	m.Health = randHealth()
-	m.PhysicalHealth = randHealth()
-	m.Name = randString()
-	m.Description = randString()
+	m.OriginMemberID = ID
+	m.State = *randState()
+	m.PhysicalState = *randState()
+	m.Health = *randHealth()
+	m.PhysicalHealth = *randHealth()
+	m.Name = *randString()
+	m.Description = *randString()
 }
 
 func randMemory(ID string) *model.Memory {
@@ -215,7 +215,7 @@ func randProcessor(ID string) *model.Processor {
 
 func randEthernetInterface(name string) *model.EthernetInterface {
 	ret := model.EthernetInterface{}
-	ret.Name = &name
+	ret.Name = name
 	ret.PermanentMACAddress = randString()
 	ret.IPv4Addresses = append(ret.IPv4Addresses, *randIPv4Address())
 	ret.IPv4Addresses = append(ret.IPv4Addresses, *randIPv4Address())
@@ -230,7 +230,7 @@ func randEthernetInterface(name string) *model.EthernetInterface {
 
 func randNetworkInterface(name string) *model.NetworkInterface {
 	ret := model.NetworkInterface{}
-	ret.Name = &name
+	ret.Name = name
 	ret.NetworkAdapterURI = "NetworkAdapters/0"
 	return &ret
 }
@@ -238,7 +238,7 @@ func randNetworkInterface(name string) *model.NetworkInterface {
 func randStorage(name string) *model.Storage {
 	ret := model.Storage{}
 	randResource(name, &ret.Resource)
-	ret.Name = &name
+	ret.Name = name
 	ret.StorageControllers = append(ret.StorageControllers, *randStorageController("Controller0"))
 	ret.StorageControllers = append(ret.StorageControllers, *randStorageController("Controller1"))
 	return &ret
@@ -248,7 +248,7 @@ func randStorageController(name string) *model.StorageController {
 	ret := model.StorageController{}
 	randMember(name, &ret.Member)
 	randProductInfo(&ret.ProductInfo)
-	ret.Name = &name
+	ret.Name = name
 	ret.SpeedGbps = *randInt()
 	ret.FirmwareVersion = *randString()
 	ret.SupportedDeviceProtocols = append(ret.SupportedDeviceProtocols, *randString())

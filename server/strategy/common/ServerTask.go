@@ -295,3 +295,15 @@ func (s *ServerTask) SetTaskStepError(c *context.Base, id string, stepName strin
 	_, err := taskSDK.UpdateStep(id, request)
 	s.logUpdateStepResult(c, id, stepName, server, err)
 }
+
+// SetTaskFinished Set the task to finish.
+func (s *ServerTask) SetTaskFinished(c *context.Base, id string, server *model.Server) {
+	var p100 uint32 = 100
+	request := new(taskDTO.UpdateTaskRequest)
+	request.Percentage = &p100
+	request.ExecutionState = &taskModel.ExecutionStateTerminated
+	request.ExecutionResult = new(taskDTO.UpdateExecutionResultRequest)
+	request.ExecutionResult.State = &taskModel.ExecutionResultStateFinished
+	taskSDK.UpdateTask(id, request)
+	log.WithFields(log.Fields{"server": server.ID, "task": id}).Debug("Set task to finished.")
+}

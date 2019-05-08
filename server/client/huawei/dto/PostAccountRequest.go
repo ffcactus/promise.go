@@ -1,7 +1,8 @@
 package dto
 
+// PostAccountRequest DTO
 type PostAccountRequest struct {
 	UserName string `json:"UserName"`
 	Password string `json:"Password"`
-	RoleId   string `json:"RoleId"`
+	RoleID   string `json:"RoleId"`
 }
